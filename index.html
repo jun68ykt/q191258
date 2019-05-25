@@ -16,6 +16,7 @@
         if ( start_flag === false) {
           roulette_id = setInterval(roulette_start, 100);
           start_flag =true;
+          buttons_reset();
         }
       }
 
@@ -29,6 +30,7 @@
       function random_stop() {
         clearInterval(roulette_id);
         start_flag = false;
+        buttons_reset();
         $('#td' + num).css('backgroundColor', 'blue');
         cell.splice(random, 1);
         num=0;
@@ -36,15 +38,24 @@
 
       function random_reset() {
         start_flag =false;
+        buttons_reset();
         clearInterval(roulette_id);
         cell = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
         $("td").css('backgroundColor', 'white');
+      }
+
+      function buttons_reset() {
+        $('#start').prop('disabled', start_flag);
+        $('#stop').prop('disabled', !start_flag);
+        $('#reset').prop('disabled', start_flag);
       }
 
       $(function() {
         $('#start').click(random_start);
         $('#stop').click(random_stop);
         $('#reset').click(random_reset);
+
+        buttons_reset();
       });
     </script>
 </head>
