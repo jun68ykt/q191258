@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset ="UTF-8">
+    <title>ルーレット</title>
+    <link rel="stylesheet" href="roulette.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      var roulette_id;
+      var start_flag = false;
+      var cell = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+      var num =1;
+      var random;
+      function random_start() {
+
+        if ( start_flag === false) {
+          roulette_id = setInterval(roulette_start, 100);
+          start_flag =true;
+        }
+      }
+
+      function roulette_start() {
+        $('#td' + num).css('backgroundColor', 'white');
+        random = Math.floor(Math.random() * cell.length);
+        num = cell[random];
+        $('#td' + num).css('backgroundColor', 'red');
+      }
+
+      function random_stop() {
+        clearInterval(roulette_id);
+        start_flag = false;
+        $('#td' + num).css('backgroundColor', 'blue');
+        cell.splice(random, 1);
+        num=0;
+      }
+
+      function random_reset() {
+        start_flag =false;
+        clearInterval(roulette_id);
+        cell = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+        $("td").css('backgroundColor', 'white');
+      }
+
+      $(function() {
+        $('#start').click(random_start);
+        $('#stop').click(random_stop);
+        $('#reset').click(random_reset);
+      });
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td id="td1">1</td>
+        <td id="td2">2</td>
+        <td id="td3">3</td>
+        <td id="td4">4</td>
+    </tr>
+    <tr>
+        <td id="td5">5</td>
+        <td id="td6">6</td>
+        <td id="td7">7</td>
+        <td id="td8">8</td>
+    </tr>
+    <tr>
+        <td id="td9">9</td>
+        <td id="td10">10</td>
+        <td id="td11">11</td>
+        <td id="td12">12</td>
+    </tr>
+    <tr>
+        <td id="td13">13</td>
+        <td id="td14">14</td>
+        <td id="td15">15</td>
+        <td id="td16">16</td>
+    </tr>
+</table>
+<button id ="start">スタート</button>
+<button id ="stop">ストップ</button>
+<button id ="reset">リセット</button>
+</body>
+</html>
